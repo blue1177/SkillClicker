@@ -1,0 +1,59 @@
+0.0.5 (?) - ???
+
+Cleaned up left game window into tab format
+Added resource and inventory tabs
+Cleaned up right game window into tab format
+Added research and shop tabs
+Enabled resource logging
+Added resources to interface
+Optimized data handling functions
+Made some code lines easier to read
+Created categories and ability to hide resources from view based on category
+Material and skill icons will now highlight when gained/used (yellow/red)
+Full changelog text file now available in info tab
+You can now change your character's name in the options tab
+
+0.0.4 (11) - 2/8/18
+
+Added fallback system to prevent new cookies added to old game saves becoming corrupted
+Page now forces a system save upon finishing loading
+Minor game engine optimization
+Fixed tab interface to follow same color scheme as rest of interface
+Major interface rework - opened up alot of space
+Skill tiles added to interface
+Game interface tiles in main menus resized and optimized in smaller displays
+Excavation skill hover info added (also slightly optimized tooltips again)
+Enabled logging of total lifetime xp (current xp will not add to total)
+Excavation leveling enabled
+
+0.0.3 (7) - 1/31/18
+
+Added change log to info tab
+Added general information to info tab
+Cleaned up the interface a little more
+Added scroll function for the main game interface
+Created a function to auto resize screen height of game tab when user resizes the window
+Moved inventory place holder from botton to left pane
+Added a footer with build and version number
+Removed one of the extra unused tabs
+Added a discord link
+
+0.0.2 (5) - 1/30/18
+
+Excavation icon added
+Excavation level displayed in skills interface
+Interface tabs slightly cleaned up (combined achievements into stats, renamed updates to info)
+Increased size of news feed (added 1 extra row)
+Made some font bold to display more clearly
+Changed a few font colors
+Added engine for tooltips (displays when hovering certain elements)
+Example shown on Excavate button for dirt field
+
+0.0.1 (1) - 1/25/18
+
+Game engine functional and ready
+Player level and xp displayed
+Enable player naming
+Basic mockup interface added
+Excavation skill added
+Dirt field (excavation) area added

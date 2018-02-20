@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="cache-control" content="no-cache">
+    <meta http-equiv="expires" content="0">
+    <meta http-equiv="pragma" content="no-cache">
+    <title>Skill Clicker</title>
+    <link rel="icon" href="images/icons/logo.png">
+    <link rel="stylesheet" href="assets/jquery-ui.min.css">
+    <link rel="stylesheet" href="assets/bootstrap.min.css">
+    <link rel="stylesheet" href="interface.css?v=14">
+</head>
+
+<body>
+    <div class="container-full">
+        <div id="xpbar" class="progress">
+            <div id="playerLevelBar" class="progress-bar progress-bar-striped progress-bar-animated xpbar-color" style="width: 0%"></div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div id="interfaceTop" class="row">
+            <div class="col-3">
+                <h3><span id="playerName">Player</span>'s Stats</h3>
+                <div id="playerStats">
+                    <p>Level: <span class="playerLevel">0</span> | XP: <span class="playerCurXp">0</span> / <span class="playerNextXp">0</span></p>
+
+                </div>
+            </div>
+            <div id="newsInterface" class="col-6">
+                <h4>News Feed</h4>
+                <div id="console">
+                </div>
+            </div>
+            <div class="col-3">
+                <h4>Skill Levels</h4>
+                <ul class="skill-tiles">
+                    <li id="tileExcavation" class="info">
+                        <img class="img-fluid" src="images/icons/excavation.png">&nbsp;<span class="excavationLevel">0</span>
+                        <div class="infotext autoInfo" id="tileExcavationInfo" style="width: 180px; margin-left: -90px;">
+                            <p style="font-size: 16px;">Excavation</p>
+                            <hr>
+                            <p>Level: <span class="excavationLevel" style="color: purple;"></span></p>
+                            <p>XP: <span class="excavationCurXp" style="color: green;"></span></p>
+                            <p>Next Level: <span class="excavationNextXp" style="color: blue;"></span></p>
+                            <hr>
+                            <p>Total XP: <span class="excavationTotalXp" style="color: darkslategrey;"></span></p>
+                            <span id="tileExcavationInfoExtra"></span>
+                        </div>
+                    </li>
+                    <li><img class="img-fluid" src="images/icons/mining.png">&nbsp;???</li>
+                </ul>
+            </div>
+        </div>
+
+        <div id="mainInterface" class="row">
+            <div id="gameResources" class="col-3">
+                <ul class="nav nav-pills">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="resourceTab" data-toggle="pill" href="#resourceWindow">Resources</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="inventoryTab" data-toggle="pill" href="#inventoryWindow">Inventory</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="extraLeftTab" data-toggle="pill" href="#extraLeftWindow">???</a>
+                    </li>
+                </ul>
+                <div class="tab-content" id="resourceWindows">
+                    <div class="tab-pane fade show active" id="resourceWindow">
+                        <div class="row">
+                            <div class="col-12" id="resourceDisplay">
+                                <input type="button" class="btn resource-category" value="Ground Materials" onclick="collapseGroundResources()">
+                                <ul class="resource-tiles" id="resourceGround">
+                                    <li id="tileDirt">
+                                        <img class="img-fluid" src="images/resources/dirt.png">&nbsp;Dirt: <span class="dirtCurrent">0</span>
+                                    </li>
+                                    <li id="tileSand">Sand: </li>
+                                    <li id="tileGravel">Gravel: </li>
+                                    <li id="tileClay">
+                                        <img class="img-fluid" src="images/resources/clay.png">&nbsp;Clay: <span class="clayCurrent">0</span>
+                                    </li>
+                                </ul>
+                                <input type="button" class="btn resource-category" value="Crafting Components" onclick="collapseCraftingResources()">
+                                <ul class="resource-tiles" id="resourceCrafting">
+                                    <li id="tileFiber">
+                                        <img class="img-fluid" src="images/resources/fiber.png">&nbsp;Grass Fiber: <span class="fiberCurrent">0</span>
+                                    </li>
+                                    <li id="tileTwig">Twig: </li>
+                                    <li id="tileSeed">Seed: </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="inventoryWindow">
+                        <div class="row">
+                            <div class="col-3">
+                                <h5>Inventory</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="extraLeftWindow">???</div>
+                </div>
+            </div>
+
+            <div id="gameMenus" class="col-6">
+                <ul class="nav nav-pills">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="gatheringTab" data-toggle="pill" href="#gatheringWindow">Gathering</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="craftingTab" data-toggle="pill" href="#craftingWindow">Crafting</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="processingTab" data-toggle="pill" href="#processingWindow">Processing</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="techTab" data-toggle="pill" href="#techWindow">Tech</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="autoTab" data-toggle="pill" href="#autoWindow">Automation</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="extraTab" data-toggle="pill" href="#extraWindow">???</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="gameStatsTab" data-toggle="pill" href="#gameStats">Stats</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="gameOptionsTab" data-toggle="pill" href="#gameOptions" role="tab">Options</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="gameUpdatesTab" data-toggle="pill" href="#gameInfo" role="tab">Info</a>
+                    </li>
+                </ul>
+                <div class="tab-content" id="gameWindows">
+                    <div class="tab-pane fade show active" id="gatheringWindow">
+                        <div class="row">
+                            <div class="col-12">
+                                <h5>Excavation</h5>
+
+                                <ul class="interface-tile-main">
+                                    <li class="interface-tile">
+                                        <div id="dirtFieldCard" class="card text-center">
+                                            <img class="card-img-top" src="images/gathering/dirt-field.jpeg" alt="Dirt Field">
+                                            <div class="card-body">
+                                                <h4 class="card-title">Dirt Field</h4>
+                                                <p class="card-text info">
+                                                    <input id="dirtField" type="button" class="btn btn-darkblue" value="Excavate" onclick="excavateDirtField()">
+                                                    <span class="infotext autoInfo" id="dirtFieldInfo" style="width: 180px; margin-left: -90px; top: 210%;"></span>
+                                                </p>
+                                                <div class="progress">
+                                                    <div id="dirtFieldBar" class="progress-bar progress-bar-striped progress-bar-animated progress-bar-color" style="width: 0%"><span id="dirtFieldValue"></span></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+
+                                </ul>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="craftingWindow">crafting tab</div>
+                    <div class="tab-pane fade" id="processingWindow">processing tab</div>
+                    <div class="tab-pane fade" id="techWindow">tech tab</div>
+                    <div class="tab-pane fade" id="autoWindow">automation tab</div>
+                    <div class="tab-pane fade" id="extraWindow">???</div>
+                    <div class="tab-pane fade" id="gameStats">lifetime stats &amp; achievements tab</div>
+                    <div class="tab-pane fade" id="gameOptions">
+                        <h5>Options</h5>
+                        <input type="button" class="btn btn-info" id="save" value="Save" onclick="saveGame()">
+                        <input type="button" class="btn btn-success" id="load" value="Load" onclick="loadGame()">
+                        <input type="button" class="btn btn-danger" id="reset" value="Reset" onclick="resetGame()">
+                        <hr>
+                        <input type="button" class="btn btn-dark" id="renameChar" value="Rename Character" onclick="renameChar()">
+                    </div>
+                    <div class="tab-pane fade" id="gameInfo">
+                        <h5>General Info</h5>
+                        <p>Skill Clicker by blue</p>
+                        <p>Version: <span id="gameVersion"></span></p>
+                        <p>Build: <span id="gameBuild"></span></p>
+                        <p>Discord: <a href="https://discord.gg/jnK3ppW">https://discord.gg/jnK3ppW</a></p>
+                        <p>Full Changelog: <a target="_blank" href="version.txt">here</a></p>
+                        <hr>
+                        <h5>Updates</h5>
+                        <ul>
+                            <li>0.0.4 (11) - 2/8/18</li>
+                            <ul>
+                                <li>Added fallback system to prevent new cookies added to old game saves becoming corrupted</li>
+                                <li>Page now forces a system save upon finishing loading</li>
+                                <li>Minor game engine optimization</li>
+                                <li>Fixed tab interface to follow same color scheme as rest of interface</li>
+                                <li>Major interface rework - opened up alot of space</li>
+                                <li>Skill tiles added to interface</li>
+                                <li>Game interface tiles in main menus resized and optimized in smaller displays</li>
+                                <li>Excavation skill hover info added (also slightly optimized tooltips again)</li>
+                                <li>Enabled logging of total lifetime xp (current xp will not add to total)</li>
+                                <li>Excavation leveling enabled</li>
+                            </ul>
+                            <li>0.0.3 (7) - 1/31/18</li>
+                            <ul>
+                                <li>Added change log to info tab</li>
+                                <li>Added general information to info tab</li>
+                                <li>Cleaned up the interface a little more</li>
+                                <li>Added scroll function for the main game interface</li>
+                                <li>Created a function to auto resize screen height of game tab when user resizes the window</li>
+                                <li>Moved inventory place holder from botton to left pane</li>
+                                <li>Added a footer with build and version number</li>
+                                <li>Removed one of the extra unused tabs</li>
+                                <li>Added a discord link</li>
+                            </ul>
+                            <li>0.0.2 (5) - 1/30/18</li>
+                            <ul>
+                                <li>Excavation icon added</li>
+                                <li>Excavation level displayed in skills interface</li>
+                                <li>Interface tabs slightly cleaned up (combined achievements into stats, renamed updates to info)</li>
+                                <li>Increased size of news feed (added 1 extra row)</li>
+                                <li>Made some font bold to display more clearly</li>
+                                <li>Changed a few font colors</li>
+                                <li>Added engine for tooltips (displays when hovering certain elements)</li>
+                                <li>Example shown on Excavate button for dirt field</li>
+                            </ul>
+                            <li>0.0.1 (1) - 1/25/18</li>
+                            <ul>
+                                <li>Game engine functional and ready</li>
+                                <li>Player level and xp displayed</li>
+                                <li>Enable player naming</li>
+                                <li>Basic mockup interface added</li>
+                                <li>Excavation skill added</li>
+                                <li>Dirt field (excavation) area added</li>
+                            </ul>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div id="gameShops" class="col-3">
+                <ul class="nav nav-pills">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="researchTab" data-toggle="pill" href="#researchWindow">Research</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="shopTab" data-toggle="pill" href="#shopWindow">Shop</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="extraRightTab" data-toggle="pill" href="#extraRightWindow">???</a>
+                    </li>
+                </ul>
+                <div class="tab-content" id="shopWindows">
+                    <div class="tab-pane fade show active" id="researchWindow">
+                        <div class="row">
+                            <div class="col-3">
+                                <h5>Research</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="shopWindow">
+                        <div class="row">
+                            <div class="col-3">
+                                <h5>Shop</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="extraRightWindow">???</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <p id="footerInfo"></p>
+        </div>
+    </div>
+
+    <script src="assets/jquery-3.2.1.min.js"></script>
+    <script src="assets/popper-1.11.0.min.js"></script>
+    <script src="assets/jquery-ui.min.js"></script>
+    <script src="assets/bootstrap.bundle.min.js"></script>
+    <script src="game.js?v=14"></script>
+</body>
+
+</html>

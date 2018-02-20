@@ -1,0 +1,351 @@
+/* Interface styles 
+#BFDCE7
+#5BA5C2
+#316D85
+#16313C
+#09232D
+*/
+
+/* Global */
+
+body {
+    color: #09232D;
+}
+
+.progress-bar {
+    color: #BFDCE7;
+}
+
+.btn-darkblue {
+    color: #BFDCE7;
+    background-color: #16313C;
+    border-color: #16313C;
+}
+
+.btn-darkblue:hover {
+    color: #BFDCE7;
+    background-color: #09232D;
+    border-color: #09232D;
+}
+
+/* Top Global */
+
+.container-full {
+    padding: 0;
+    margin: 0;
+}
+
+#interfaceTop {
+    height: 147px;
+    /* old 125px */
+    background-color: #5BA5C2;
+    border-bottom: #09232D 1px solid;
+}
+
+#interfaceTop h3 {
+    font-size: 20px;
+    margin: 1px;
+}
+
+#interfaceTop h4 {
+    text-align: center;
+    font-size: 18px;
+    margin: 2px;
+}
+
+/* Player Xp Bar */
+
+#xpbar {
+    background-color: #BFDCE7;
+    border-radius: 0;
+    height: 6px;
+}
+
+.xpbar-color {
+    background-color: #316D85;
+}
+
+/* Player Stats */
+
+#playerStats p {
+    margin: 0;
+}
+
+/* News Feed */
+
+#newsInterface {
+    padding: 0;
+}
+
+#console {
+    overflow-y: scroll;
+    height: 122px;
+    /* old 100px */
+    background-color: #BFDCE7;
+    padding: 0 5px;
+    border: #09232D 1px solid;
+}
+
+#console p {
+    margin: 0;
+}
+
+#console::-webkit-scrollbar {
+    width: 16px;
+}
+
+#console::-webkit-scrollbar-thumb {
+    background-color: #16313C;
+}
+
+#console::-webkit-scrollbar-track {
+    background-color: #316D85;
+}
+
+/* Tab Pills */
+
+.nav-pills {
+    border-bottom: 1px solid #09232D;
+    border-top: 0;
+    background-color: #316D85;
+}
+
+.nav-pills .nav-link {
+    color: #BFDCE7;
+    font-size: 17px;
+    padding: 4px 8px;
+    border-right: 1px solid #09232D;
+    border-radius: 0;
+}
+
+.nav-pills .nav-link.active {
+    background-color: #09232D;
+    color: #BFDCE7;
+}
+
+/* Main Tab Stuff */
+
+#mainInterface {
+    background-color: #BFDCE7;
+}
+
+#gameMenus {
+    padding: 0;
+    border-left: 1px solid #09232D;
+    border-right: 1px solid #09232D;
+    border-bottom: 1px solid #09232D;
+}
+
+#gameWindows {
+    overflow-y: scroll;
+    padding-right: 15px;
+    height: 600px;
+    padding: 10px 15px;
+}
+
+#gameWindows::-webkit-scrollbar {
+    width: 16px;
+}
+
+#gameWindows::-webkit-scrollbar-thumb {
+    background-color: #16313C;
+}
+
+#gameWindows::-webkit-scrollbar-track {
+    background-color: #316D85;
+}
+
+.card {
+    background-color: #5BA5C2;
+    width: 200px;
+    height: 300px;
+}
+
+.progress-bar-color {
+    background-color: #16313C;
+}
+
+.interface-tile-main {
+    list-style-type: none;
+    text-align: center;
+    padding: 0;
+    margin: 0;
+}
+
+.interface-tile {
+    display: inline-block;
+    vertical-align: top;
+    margin: 10px 6px;
+}
+
+/* Side Menus */
+
+#gameResources {
+    border-bottom: 1px solid #09232D;
+    padding: 0;
+}
+
+#resourceWindows {
+    overflow-y: scroll;
+    padding-right: 15px;
+    height: 600px;
+    /*    padding: 10px 15px;*/
+}
+
+#resourceWindows::-webkit-scrollbar {
+    width: 16px;
+}
+
+#resourceWindows::-webkit-scrollbar-thumb {
+    background-color: #16313C;
+}
+
+#resourceWindows::-webkit-scrollbar-track {
+    background-color: #316D85;
+}
+
+#gameShops {
+    border-bottom: 1px solid #09232D;
+    padding: 0;
+}
+
+#shopWindows {
+    overflow-y: scroll;
+    padding-right: 15px;
+    height: 600px;
+    padding: 10px 15px;
+}
+
+#shopWindows::-webkit-scrollbar {
+    width: 16px;
+}
+
+#shopWindows::-webkit-scrollbar-thumb {
+    background-color: #16313C;
+}
+
+#shopWindows::-webkit-scrollbar-track {
+    background-color: #316D85;
+}
+
+/* Skill Tiles */
+
+.skill-tiles {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.skill-tiles li {
+    display: inline-block;
+    vertical-align: top;
+    background-color: #BFDCE7;
+    padding: 5px;
+    width: 70px;
+    height: 38px;
+    border: 1px solid #09232D;
+    border-radius: 8px;
+    margin: 1px 0;
+}
+
+/* Resource Tiles */
+
+#resourceDisplay {
+    padding: 0 0 0 15px;
+}
+
+.resource-category {
+    color: #BFDCE7;
+    background-color: #316D85;
+    border-radius: 0;
+    border-bottom: solid 1px #09232D;
+    width: 100%;
+}
+
+.resource-category:hover {
+    color: #BFDCE7;
+    background-color: #09232D;
+}
+
+.resource-tiles {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.resource-tiles li {
+    display: block;
+    background-color: #5BA5C2;
+    padding: 2px 0 0 5px;
+    border-bottom: solid 1px #09232D;
+    height: 30px;
+}
+
+/* Tooltips */
+
+.info {
+    position: relative;
+    display: inline-block;
+}
+
+.info .infotext {
+    visibility: hidden;
+    width: 120px;
+    background-color: #BFDCE7;
+    border: 1px solid #09232D;
+    color: #09232D;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    top: 120%;
+    left: 50%;
+    margin-left: -60px;
+}
+
+.info .infotext::after {
+    content: "";
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent transparent #09232D transparent;
+}
+
+.info:hover .infotext {
+    visibility: visible;
+}
+
+.infotext p {
+    margin: 0;
+}
+
+.autoInfo {
+    color: #16313C;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.autoInfo hr {
+    padding: 0;
+    margin: 0;
+    color: #09232D;
+}
+
+/* footer */
+
+#footerInfo {
+    font-size: 12px;
+    margin: 0;
+    padding: 0 10px;
+    background-color: #316D85;
+    color: #BFDCE7;
+    width: 100%;
+}
+
+#footerInfo a {
+    color: #BFDCE7;
+}
