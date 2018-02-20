@@ -26,8 +26,8 @@ system.start = new Date();
 //================================
 
 //version
-var version = "0.0.4"; //update with releases MAJOR.MINOR.PATCH
-var build = "14" //update each upload
+var version = "0.0.5"; //update with releases MAJOR.MINOR.PATCH
+var build = "15" //update each upload
 
 //player data
 var p = {

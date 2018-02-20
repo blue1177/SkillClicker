@@ -1,4 +1,6 @@
-0.0.5 (?) - ???
+0.0.6 (???) - ???
+
+0.0.5 (15) - 2/20/18
 
 Cleaned up left game window into tab format
 Added resource and inventory tabs
@@ -12,6 +14,7 @@ Created categories and ability to hide resources from view based on category
 Material and skill icons will now highlight when gained/used (yellow/red)
 Full changelog text file now available in info tab
 You can now change your character's name in the options tab
+Added GitHub link
 
 0.0.4 (11) - 2/8/18
 
