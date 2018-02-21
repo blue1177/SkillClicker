@@ -27,7 +27,7 @@ system.start = new Date();
 
 //version
 var version = "0.0.5"; //update with releases MAJOR.MINOR.PATCH
-var build = "15" //update each upload
+var build = "16" //update each upload
 
 //player data
 var p = {
@@ -110,7 +110,9 @@ function gameInitialization() {
         loadGame(); //load game data
     } else {
         console.log("Game Data Not Found. Creating New Game State.");
-        p.name = prompt('What do you wish to name your character?', 'Name');
+        do {
+            p.name = prompt('What do you wish to name your character?', 'Name');
+        } while (p.name === null)
         saveGame();
         newsFeed(`You are ready to begin your adventure, <span style="color: orange">${p.name}</span>!`, 'blue');
     }
@@ -187,22 +189,22 @@ function saveGame() {
 //system save game data
 function saveData() {
     //player stats
-    setCookie("playerName", p.name, 1000); //player name
-    setCookie("playerLevel", p.level, 1000); //player level
-    setCookie("playerXp", p.curXp, 1000); //current player xp
-    setCookie("playerTotalXp", p.totalXp, 1000); //total player xp
+    setCookie("playerName", p.name, 9999); //player name
+    setCookie("playerLevel", p.level, 9999); //player level
+    setCookie("playerXp", p.curXp, 9999); //current player xp
+    setCookie("playerTotalXp", p.totalXp, 9999); //total player xp
     //skill stats
-    setCookie("excavationLevel", s.excavation.level, 1000); //excavation level
-    setCookie("excavationXp", s.excavation.curXp, 1000); //current excavation xp
-    setCookie("excavationTotalXp", s.excavation.totalXp, 1000); //total excavation xp
+    setCookie("excavationLevel", s.excavation.level, 9999); //excavation level
+    setCookie("excavationXp", s.excavation.curXp, 9999); //current excavation xp
+    setCookie("excavationTotalXp", s.excavation.totalXp, 9999); //total excavation xp
     //resources
-    setCookie("dirtCurrent", g.r.dirt.current, 1000); //current dirt
-    setCookie("dirtTotal", g.r.dirt.total, 1000); //total dirt
+    setCookie("dirtCurrent", g.r.dirt.current, 9999); //current dirt
+    setCookie("dirtTotal", g.r.dirt.total, 9999); //total dirt
 
-    setCookie("clayCurrent", g.r.clay.current, 1000); //current clay
-    setCookie("clayTotal", g.r.clay.total, 1000); //total clay
-    setCookie("fiberCurrent", g.r.fiber.current, 1000); //current fiber
-    setCookie("fiberTotal", g.r.fiber.total, 1000); //total fiber
+    setCookie("clayCurrent", g.r.clay.current, 9999); //current clay
+    setCookie("clayTotal", g.r.clay.total, 9999); //total clay
+    setCookie("fiberCurrent", g.r.fiber.current, 9999); //current fiber
+    setCookie("fiberTotal", g.r.fiber.total, 9999); //total fiber
 }
 
 //load game data
@@ -230,29 +232,33 @@ function loadGame() {
 
 //rename character
 function renameChar() {
-    p.name = prompt('What do you wish to name your character?', 'Name');
-    saveGame();
-    newsFeed(`Your name changed, you will now be known as <span style="color: orange">${p.name}</span>!`, 'blue');
-    gameTick();
-}
-
-//custom error handler for logging
-function errorLog() {
-    console.log('Fatal ERROR');
-    console.log('Please report to @blue#0859 on discord!')
-    newsFeed('[SYSTEM] Fatal ERROR', 'darkred');
-    newsFeed('[SYSTEM] Please report to @blue#0859 on discord!', 'darkred');
-}
-
-//used for incompleted objects, lets users know interaction works but has no function yet
-function unfLog() {
-    console.log('Unfinished Content. This is not a bug, function still in development!');
-    newsFeed('[SYSTEM] Unfinished Content. This is not a bug, function still in development!', 'darkred');
+    var newName = prompt('What do you wish to name your character?', 'Name');
+    if (newName === null) {
+        console.log('Canceled name change');
+        newsFeed('Name change canceled.', 'darkred');
+    } else {
+        p.name = newName;
+        saveGame();
+        console.log(`name changed to ${p.name}`);
+        newsFeed(`Your name changed, you will now be known as <span style="color: orange">${p.name}</span>!`, 'blue');
+        gameTick();
+    }
 }
 
 /*=====================================================================================
 GAME ENGINE: UI FUNCTIONALITY
 =======================================================================================*/
+
+//resizes scroll bar for interfaces
+function resizeScreen() {
+    var usableHeight = window.innerHeight;
+    var height = usableHeight - 226;
+    $('#gameWindows').height(height);
+    $('#resourceWindows').height(height + 20);
+    $('#shopWindows').height(height);
+}
+window.onload = resizeScreen();
+window.onresize = resizeScreen;
 
 //footer info
 $('#footerInfo').html(`Skill Clicker by blue -- Version: ${version} (${build}) -- Official Discord: <a href="https://discord.gg/jnK3ppW">https://discord.gg/jnK3ppW</a>`);
@@ -485,17 +491,6 @@ function rng(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-//resizes scroll bar for interfaces
-function resizeScreen() {
-    var usableHeight = window.innerHeight;
-    var height = usableHeight - 226;
-    $('#gameWindows').height(height);
-    $('#resourceWindows').height(height + 20);
-    $('#shopWindows').height(height);
-}
-window.onload = resizeScreen();
-window.onresize = resizeScreen;
-
 /*=====================================================================================
 GAME ENGINE: LEVELING FUNCTIONALITY
 =======================================================================================*/
@@ -512,7 +507,8 @@ function levelUpSequence() {
     excavationLevelUpCheck(); //excavation level up
 }
 
-//player level stuff
+//=================================================
+//PLAYER LEVELING
 //calculating xp for character level
 function xpPerCharLevel() {
     p.nextXp = 10 * (p.level - 1 + (Math.pow(1.28, (p.level - 1))));
@@ -530,7 +526,8 @@ function playerLevelUpCheck() {
     }
 }
 
-//excavation level stuff
+//=================================================
+//EXCAVATION LEVELING
 //calculating xp for excavation level
 function xpPerExcavationLevel() {
     s.excavation.nextXp = 10 * (s.excavation.level - 1 + (Math.pow(1.15, (s.excavation.level - 1))));
@@ -690,6 +687,24 @@ function dirtFieldInfo() { //tooltip
         <p>Fail Chance: <span style="color: darkorange;">${+(fail).toFixed(2)}%</span></p>
         <p>Rate: <span style="color: purple;">${+(dirtFieldTimeElapsed).toFixed(3)}s</span></p>
     `);
+}
+
+/*=====================================================================================
+DEBUGGING
+=======================================================================================*/
+
+//custom error handler for logging
+function errorLog() {
+    console.log('Fatal ERROR');
+    console.log('Please report to @blue#0859 on discord!')
+    newsFeed('[SYSTEM] Fatal ERROR', 'darkred');
+    newsFeed('[SYSTEM] Please report to @blue#0859 on discord!', 'darkred');
+}
+
+//used for incompleted objects, lets users know interaction works but has no function yet
+function unfLog() {
+    console.log('Unfinished Content. This is not a bug, function still in development!');
+    newsFeed('[SYSTEM] Unfinished Content. This is not a bug, function still in development!', 'darkred');
 }
 
 //=================================================
