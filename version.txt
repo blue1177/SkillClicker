@@ -4,6 +4,8 @@ Fixed links to open in new tab
 Removed load option (not needed since game automatically loads in initialization)
 Fixed name change canceling
 Prevented players from having a blank name
+Added Github link, changelog, and save button to bottom bar
+Fixed all links to open in new tab
 
 0.0.5 (15) - 2/20/18
 

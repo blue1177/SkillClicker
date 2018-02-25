@@ -27,7 +27,7 @@ system.start = new Date();
 
 //version
 var version = "0.0.5"; //update with releases MAJOR.MINOR.PATCH
-var build = "16" //update each upload
+var build = "17" //update each upload
 
 //player data
 var p = {
@@ -261,7 +261,7 @@ window.onload = resizeScreen();
 window.onresize = resizeScreen;
 
 //footer info
-$('#footerInfo').html(`Skill Clicker by blue -- Version: ${version} (${build}) -- Official Discord: <a href="https://discord.gg/jnK3ppW">https://discord.gg/jnK3ppW</a>`);
+$('#footerInfo').html(`Skill Clicker by blue -- Version: ${version} (${build}) -- <a target="_blank" href="https://discord.gg/jnK3ppW">Official Discord</a> -- <a target="_blank" href="https://github.com/blue1177/SkillClicker">Github</a> -- <a target="_blank" href="version.txt">Changelog</a> -- <a href="#" onclick="saveGame()">Save</a>`);
 
 //info tab stuff
 $('#gameVersion').html(version);
