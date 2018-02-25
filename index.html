@@ -10,7 +10,7 @@
     <link rel="icon" href="images/icons/logo.png">
     <link rel="stylesheet" href="assets/jquery-ui.min.css">
     <link rel="stylesheet" href="assets/bootstrap.min.css">
-    <link rel="stylesheet" href="interface.css?v=17">
+    <link rel="stylesheet" href="interface.css?v=18">
 </head>
 
 <body>
@@ -137,10 +137,22 @@
                 </ul>
                 <div class="tab-content" id="gameWindows">
                     <div class="tab-pane fade show active" id="gatheringWindow">
-                        <div class="row">
-                            <div class="col-12">
-                                <h5>Excavation</h5>
-
+                        <ul class="sub-nav nav nav-pills">
+                            <li class="nav-item">
+                                <a class="nav-link active" id="excavationTab" data-toggle="pill" href="#excavationWindow">Excavation</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="miningTab" data-toggle="pill" href="#miningWindow">Mining</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="extraGatheringTab" data-toggle="pill" href="#extraGatheringWindow">???</a>
+                            </li>
+                        </ul>
+                        <div class="tab-content" id="gatheringWindows">
+                            <div class="tab-pane fade show active" id="excavationWindow">
+                                <div class="skill-header" id="excavationHeader">
+                                    Excavation Level: <span class="excavationLevel"></span> | XP: <span class="excavationCurXp"></span> / <span class="excavationNextXp"></span>
+                                </div>
                                 <ul class="interface-tile-main">
                                     <li class="interface-tile">
                                         <div id="dirtFieldCard" class="card text-center">
@@ -159,8 +171,9 @@
                                     </li>
 
                                 </ul>
-
                             </div>
+                            <div class="tab-pane fade" id="miningWindow">mining tab</div>
+                            <div class="tab-pane fade" id="extraGatheringWindow">???</div>
                         </div>
                     </div>
                     <div class="tab-pane fade" id="craftingWindow">crafting tab</div>
@@ -188,6 +201,18 @@
                         <hr>
                         <h5>Updates</h5>
                         <ul>
+                            <li>0.0.6 (18) - 2/25/18</li>
+                            <ul>
+                                <li>Fixed links to open in new tab</li>
+                                <li>Removed load option (not needed since game automatically loads in initialization)</li>
+                                <li>Fixed name change canceling</li>
+                                <li>Prevented players from having a blank name</li>
+                                <li>Added Github link, changelog, and save button to bottom bar</li>
+                                <li>Fixed all links to open in new tab</li>
+                                <li>Createed sub menu for gathering skills in gathering window</li>
+                                <li>Excavation level and xp appears in game window</li>
+                                <li>Progress bar now displays red then changes to green upon completion</li>
+                            </ul>
                             <li>0.0.5 (15) - 2/20/18</li>
                             <ul>
                                 <li>Cleaned up left game window into tab format</li>
@@ -295,7 +320,7 @@
     <script src="assets/popper-1.11.0.min.js"></script>
     <script src="assets/jquery-ui.min.js"></script>
     <script src="assets/bootstrap.bundle.min.js"></script>
-    <script src="game.js?v=17"></script>
+    <script src="game.js?v=18"></script>
 </body>
 
 </html>

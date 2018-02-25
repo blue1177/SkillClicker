@@ -123,6 +123,19 @@ body {
     color: #BFDCE7;
 }
 
+.sub-nav.nav-pills {
+    background-color: #5BA5C2;
+}
+
+.sub-nav.nav-pills .nav-link {
+    color: #09232D;
+}
+
+.sub-nav.nav-pills .nav-link.active {
+    background-color: #316D85;
+    color: #BFDCE7;
+}
+
 /* Main Tab Stuff */
 
 #mainInterface {
@@ -138,9 +151,7 @@ body {
 
 #gameWindows {
     overflow-y: scroll;
-    padding-right: 15px;
     height: 600px;
-    padding: 10px 15px;
 }
 
 #gameWindows::-webkit-scrollbar {
@@ -176,6 +187,21 @@ body {
     display: inline-block;
     vertical-align: top;
     margin: 10px 6px;
+}
+
+.skill-header {
+    font-size: 16px;
+    background-color: #5BA5C2;
+    padding: 4px 8px;
+    border-bottom: 1px solid #09232D;
+}
+
+#gameOptions {
+    padding: 10px;
+}
+
+#gameInfo {
+    padding: 10px;
 }
 
 /* Side Menus */

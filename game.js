@@ -16,8 +16,8 @@ system.start = new Date();
 //================================
 
 //version
-var version = "0.0.5"; //update with releases MAJOR.MINOR.PATCH
-var build = "17" //update each upload
+var version = "0.0.6"; //update with releases MAJOR.MINOR.PATCH
+var build = "18" //update each upload
 
 //player data
 var p = {
@@ -242,16 +242,16 @@ GAME ENGINE: UI FUNCTIONALITY
 //resizes scroll bar for interfaces
 function resizeScreen() {
     var usableHeight = window.innerHeight;
-    var height = usableHeight - 226;
+    var height = usableHeight - 206;
     $('#gameWindows').height(height);
-    $('#resourceWindows').height(height + 20);
-    $('#shopWindows').height(height);
+    $('#resourceWindows').height(height);
+    $('#shopWindows').height(height - 20);
 }
 window.onload = resizeScreen();
 window.onresize = resizeScreen;
 
 //footer info
-$('#footerInfo').html(`Skill Clicker by blue -- Version: ${version} (${build}) -- <a target="_blank" href="https://discord.gg/jnK3ppW">Official Discord</a> -- <a target="_blank" href="https://github.com/blue1177/SkillClicker">Github</a> -- <a target="_blank" href="version.txt">Changelog</a> -- <a href="#" onclick="saveGame()">Save</a>`);
+$('#footerInfo').html(`Skill Clicker by blue | Version: ${version} (${build}) | <a target="_blank" href="https://discord.gg/jnK3ppW">Official Discord</a> | <a target="_blank" href="https://github.com/blue1177/SkillClicker">Github</a> | <a target="_blank" href="version.txt">Changelog</a> | <a href="#" onclick="saveGame()">Save</a>`);
 
 //info tab stuff
 $('#gameVersion').html(version);
@@ -560,6 +560,8 @@ var dirtFieldProgress, dirtFieldInterval, dirtFieldTimeStart, dirtFieldTimeEnd, 
 function excavateDirtField() { //starts cycle
     dirtFieldTimeStart = new Date();
     $('#dirtField').attr('disabled', 'disabled');
+    $('#dirtFieldBar').css('background-color', 'red');
+    $('#dirtFieldValue').text('0%');
     dirtFieldProgress = 0;
     dirtFieldInterval = setInterval(function () {
         dirtFieldCycle();
@@ -654,6 +656,8 @@ function lootDirtField() { //loot table
         }
     }
     $('#dirtField').removeAttr('disabled');
+    $('#dirtFieldBar').css('background-color', 'darkgreen');
+    $('#dirtFieldValue').text('Done');
     dirtFieldTimeEnd = new Date();
     dirtFieldTimeElapsed = (dirtFieldTimeEnd - dirtFieldTimeStart) / 1000;
     console.log(`${dirtFieldTimeElapsed} Seconds`);
