@@ -1,16 +1,6 @@
 /*  Skill Clicker by Michael Walsh
 Some code might be messy, I'll go back and clean up later. Using both JQuery and Vanilla JS.
 
-TEMP NOTES - You can ignore this! Unless you like spoilers :D
-http://home.kpn.nl/vanadovv/BignumbyN.html
-https://en.wikipedia.org/wiki/Mineral
-https://en.wikipedia.org/wiki/Clay_minerals
-https://en.wikipedia.org/wiki/Sulfate_minerals
-
-$('#').effect("highlight", {
-                color: 'red'
-            });
-
 =====================================================================================
 GAME ENGINE: GLOBAL GAME DATA
 =======================================================================================*/
