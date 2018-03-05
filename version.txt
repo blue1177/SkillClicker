@@ -1,6 +1,7 @@
 0.0.7 (???) - ???
 
-
+Added rarity to resources
+Rewrote loot tables and chance for gathering areas
 
 0.0.6 (18) - 2/25/18
 

@@ -1,9 +1,5 @@
 /*  Skill Clicker by Michael Walsh
-Some code might be messy, I'll go back and clean up later. Using both JQuery and Vanilla JS.
-
-=====================================================================================
-GAME ENGINE: GLOBAL GAME DATA
-=======================================================================================*/
+Some code might be messy, I'll go back and clean up later. Using both JQuery and Vanilla JS. */
 
 //================================
 //START LOAD TIMER (for debugging)
@@ -15,9 +11,13 @@ var system = {
 system.start = new Date();
 //================================
 
+/*=====================================================================================
+GAME ENGINE: GLOBAL GAME DATA
+=======================================================================================*/
+
 //version
 var version = "0.0.6"; //update with releases MAJOR.MINOR.PATCH
-var build = "18" //update each upload
+var build = "19" //update each upload
 
 //player data
 var p = {
@@ -36,7 +36,7 @@ var s = {
         curXp: 0,
         nextXp: 0,
         power: 1,
-        chance: 100, //base chance, going down improves overall chance
+        chance: 1,
         speed: 1,
         multXp: 1,
         totalXp: 0
@@ -50,21 +50,25 @@ var g = {
         //ground materials
         dirt: {
             name: "Dirt",
+            rarity: "Common",
             current: 0,
             total: 0
         },
         sand: {
             name: "Sand",
+            rarity: "Common",
             current: 0,
             total: 0
         },
         gravel: {
             name: "Gravel",
+            rarity: "Common",
             current: 0,
             total: 0
         },
         clay: {
             name: "Clay",
+            rarity: "Uncommon",
             current: 0,
             total: 0
         },
@@ -73,16 +77,19 @@ var g = {
         //crafting components
         fiber: {
             name: "Grass Fiber",
+            rarity: "Common",
             current: 0,
             total: 0
         },
         twig: {
             name: "Twig",
+            rarity: "Common",
             current: 0,
             total: 0
         },
         seed: {
-            name: "Seed",
+            name: "Unknown Seeds",
+            rarity: "Common",
             current: 0,
             total: 0
         }
@@ -333,7 +340,7 @@ function updateTooltips() {
 GAME ENGINE: CORE FUNCTIONALITY
 =======================================================================================*/
 
-//selects all classes and updates the value inputed, handles data by shortening large numbers
+//handles data by shortening large numbers
 function abbrNum(v) {
     if (v >= Math.pow(10, 120)) {
         v = +(v / Math.pow(10, 120)).toFixed(3) + "NoT"; //Noventrigintillion
@@ -478,7 +485,7 @@ function newsFeed(message, color) {
 
 //rng function
 function rng(min, max) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
+    return Math.random() * (max - min + 1) + min;
 }
 
 /*=====================================================================================
@@ -541,7 +548,7 @@ GAME ENGINE: GENERAL TOOLTIPS
 =======================================================================================*/
 
 function tileExcavationInfo() {
-    var chance = 100 - s.excavation.chance;
+    var chance = (s.excavation.chance - 1) * 100;
     $('#tileExcavationInfoExtra').html(`
         <p>Power: <span style="color: red;">${s.excavation.power}</span></p>
         <p>Bonus Chance: <span style="color: darkblue;">${+(chance.toFixed(2))}%</span></p>
@@ -591,69 +598,94 @@ function dirtFieldBar() { //updates progress bar on screen
 }
 
 function lootDirtField() { //loot table
-    var fail = s.excavation.chance - 75;
-    var x = rng(0, 100);
+    var c = s.excavation.chance * 90;
+    var f = 100 - c;
+    var x = rng(0, 99);
+    var y = rng(0, 999);
+    var z = rng(0, 9999);
     var pxp = (p.multXp * 0.4);
     var exp = (s.excavation.multXp * 0.8);
-    console.log(`Rolled ${x} and needed ${fail}`);
-    if (x <= fail) { //failed attempt - gain 25% xp
+    console.log(`Rolled ${x}/${f} - ${y}/700/900 - ${z}/9900`);
+    if (x >= f) { //success queue for loot
+        if (z >= 9900) { //ultra lucky loot -- TODO: ADD LEGENDARY/EPIC RESOURCE
+            //legendary resource roll
+            var lgnDirt = Math.floor(rng(1, 15) * s.excavation.power);
+            var lgnFiber = Math.floor(rng(1, 10) * s.excavation.power);
+            var lgnClay = Math.floor(rng(1, 5) * s.excavation.power);
+            //legendary resource
+            g.r.dirt.current += lgnDirt;
+            $('#tileDirt').effect("highlight");
+            g.r.dirt.total += lgnDirt;
+            g.r.fiber.current += lgnFiber;
+            $('#tileFiber').effect("highlight");
+            g.r.fiber.total += lgnFiber;
+            g.r.clay.current += lgnClay;
+            $('#tileClay').effect("highlight");
+            g.r.clay.total += lgnClay;
+            newsFeed(
+                `<span style="color: darkgreen;">[Excavation]</span>
+                Legendary! You find <span style="color: purple;">(LGN RESOURCE)</span>, <span style="color: brown;">${lgnDirt} ${g.r.dirt.name}</span>, <span style="color: green;">${lgnFiber} ${g.r.fiber.name}</span>, <span style="color: darkslategray;">${lgnClay} ${g.r.clay.name}</span> and gain <span style="color: darkorange;">${+(pxp).toFixed(2)}</span> Player Xp and <span style="color: darkblue;">${+(exp).toFixed(2)}</span> Excavation Xp.`,
+                'darkorange'
+            );
+        } else {
+            if (y >= 900) { //super lucky loot
+                var sDirt = Math.floor(rng(1, 5) * s.excavation.power);
+                var sFiber = Math.floor(rng(1, 3) * s.excavation.power);
+                var sClay = Math.floor(rng(1, 2) * s.excavation.power);
+                g.r.dirt.current += sDirt;
+                $('#tileDirt').effect("highlight");
+                g.r.dirt.total += sDirt;
+                g.r.fiber.current += sFiber;
+                $('#tileFiber').effect("highlight");
+                g.r.fiber.total += sFiber;
+                g.r.clay.current += sClay;
+                $('#tileClay').effect("highlight");
+                g.r.clay.total += sClay;
+                newsFeed(
+                    `<span style="color: darkgreen;">[Excavation]</span>
+                    Super Lucky! You find <span style="color: brown;">${sDirt} ${g.r.dirt.name}</span>, <span style="color: green;">${sFiber} ${g.r.fiber.name}</span>, <span style="color: darkslategray;">${sClay} ${g.r.clay.name}</span> and gain <span style="color: darkorange;">${+(pxp).toFixed(2)}</span> Player Xp and <span style="color: darkblue;">${+(exp).toFixed(2)}</span> Excavation Xp.`,
+                    'blue'
+                );
+                console.log('Super Lucky!');
+            } else if (y >= 700) { //lucky loot
+                var lDirt = Math.floor(rng(1, 3) * s.excavation.power);
+                var lFiber = Math.floor(rng(1, 2) * s.excavation.power);
+                g.r.dirt.current += lDirt;
+                $('#tileDirt').effect("highlight");
+                g.r.dirt.total += lDirt;
+                g.r.fiber.current += lFiber;
+                $('#tileFiber').effect("highlight");
+                g.r.fiber.total += lFiber;
+                newsFeed(
+                    `<span style="color: darkgreen;">[Excavation]</span>
+                    Lucky! You find <span style="color: brown;">${lDirt} ${g.r.dirt.name}</span>, <span style="color: green;">${lFiber} ${g.r.fiber.name}</span> and gain <span style="color: darkorange;">${+(pxp).toFixed(2)}</span> Player Xp and <span style="color: darkblue;">${+(exp).toFixed(2)}</span> Excavation Xp.`,
+                    'blue'
+                );
+                console.log('Lucky!');
+            } else { //normal loot
+                var nDirt = Math.floor(rng(1, 2) * s.excavation.power);
+                g.r.dirt.current += nDirt;
+                $('#tileDirt').effect("highlight");
+                g.r.dirt.total += nDirt;
+                console.log('Success');
+                newsFeed(
+                    `<span style="color: darkgreen;">[Excavation]</span>
+                    You find <span style="color: brown;">${nDirt} ${g.r.dirt.name}</span> and gain <span style="color: darkorange;">${+(pxp).toFixed(2)}</span> Player Xp and <span style="color: darkblue;">${+(exp).toFixed(2)}</span> Excavation Xp.`,
+                    'blue'
+                );
+            }
+        }
+    } else { //fail to roll loot - gain 25% xp
         p.curXp += (0.25 * pxp);
         p.totalXp += (0.25 * pxp);
         s.excavation.curXp += (0.25 * exp);
         s.excavation.totalXp += (0.25 * exp);
         newsFeed(
-            `You failed to find anything of use, for your efforts you gain <span style="color: darkorange;">${+(0.25 * pxp)}</span> Player Xp and <span style="color: darkblue;">${+(0.25 * exp)}</span> Excavation Xp.`,
+            `<span style="color: darkgreen;">[Excavation]</span>
+            You failed to find anything of use, for your efforts you gain <span style="color: darkorange;">${+(0.25 * pxp)}</span> Player Xp and <span style="color: darkblue;">${+(0.25 * exp)}</span> Excavation Xp.`,
             'red'
         );
         console.log('Failed');
-    } else { //successful attempt
-        p.curXp += pxp;
-        p.totalXp += pxp;
-        s.excavation.curXp += exp;
-        s.excavation.totalXp += exp;
-        if (x >= 95) { //super lucky table
-            var sDirt = Math.floor(rng(1, 5) * s.excavation.power);
-            var sFiber = Math.floor(rng(1, 3) * s.excavation.power);
-            var sClay = Math.floor(rng(1, 2) * s.excavation.power);
-            g.r.dirt.current += sDirt;
-            $('#tileDirt').effect("highlight");
-            g.r.dirt.total += sDirt;
-            g.r.fiber.current += sFiber;
-            $('#tileFiber').effect("highlight");
-            g.r.fiber.total += sFiber;
-            g.r.clay.current += sClay;
-            $('#tileClay').effect("highlight");
-            g.r.clay.total += sClay;
-            newsFeed(
-                `While excavating you find <span style="color: brown;">${sDirt} ${g.r.dirt.name}</span>, <span style="color: green;">${sFiber} ${g.r.fiber.name}</span>, <span style="color: darkslategray;">${sClay} ${g.r.clay.name}</span> and gain <span style="color: darkorange;">${+(pxp).toFixed(2)}</span> Player Xp and <span style="color: darkblue;">${+(exp).toFixed(2)}</span> Excavation Xp.`,
-                'blue'
-            );
-            console.log('Super Lucky!');
-        } else if (x >= 75) { //lucky table
-            var lDirt = Math.floor(rng(1, 3) * s.excavation.power);
-            var lFiber = Math.floor(rng(1, 2) * s.excavation.power);
-            g.r.dirt.current += lDirt;
-            $('#tileDirt').effect("highlight");
-            g.r.dirt.total += lDirt;
-            g.r.fiber.current += lFiber;
-            $('#tileFiber').effect("highlight");
-            g.r.fiber.total += lFiber;
-            newsFeed(
-                `While excavating you find <span style="color: brown;">${lDirt} ${g.r.dirt.name}</span>, <span style="color: green;">${lFiber} ${g.r.fiber.name}</span> and gain <span style="color: darkorange;">${+(pxp).toFixed(2)}</span> Player Xp and <span style="color: darkblue;">${+(exp).toFixed(2)}</span> Excavation Xp.`,
-                'blue'
-            );
-            console.log('Lucky!');
-        } else { //normal table
-            var nDirt = Math.floor(rng(1, 2) * s.excavation.power);
-            g.r.dirt.current += nDirt;
-            $('#tileDirt').effect("highlight");
-            g.r.dirt.total += nDirt;
-            console.log('Success');
-            newsFeed(
-                `While excavating you find <span style="color: brown;">${nDirt} ${g.r.dirt.name}</span> and gain <span style="color: darkorange;">${+(pxp).toFixed(2)}</span> Player Xp and <span style="color: darkblue;">${+(exp).toFixed(2)}</span> Excavation Xp.`,
-                'blue'
-            );
-        }
     }
     $('#dirtField').removeAttr('disabled');
     $('#dirtFieldBar').css('background-color', 'darkgreen');
@@ -665,7 +697,10 @@ function lootDirtField() { //loot table
 }
 
 function dirtFieldInfo() { //tooltip
-    var fail = s.excavation.chance - 75;
+    var c = s.excavation.chance * 90;
+    if (c >= 100) {
+        c = 100;
+    }
     var pxp = (p.multXp * 0.4);
     var exp = (s.excavation.multXp * 0.8);
     if (dirtFieldTimeElapsed == undefined) {
@@ -678,7 +713,7 @@ function dirtFieldInfo() { //tooltip
         <p>Player XP: <span style="color: blue;">${+(pxp).toFixed(2)}</span</p>
         <p>Excavation XP: <span style="color: green;">${+(exp).toFixed(2)}</span></p>
         <p>Resources:</p><p><span style="color: brown;">${g.r.dirt.name}</span>, <span style="color: green;">${g.r.fiber.name}</span>, <span style="color: darkslategray;">${g.r.clay.name}</span></p>
-        <p>Fail Chance: <span style="color: darkorange;">${+(fail).toFixed(2)}%</span></p>
+        <p>Chance: <span style="color: darkorange;">${+(c).toFixed(2)}%</span></p>
         <p>Rate: <span style="color: purple;">${+(dirtFieldTimeElapsed).toFixed(3)}s</span></p>
     `);
 }
