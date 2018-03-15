@@ -3,12 +3,7 @@ Some code might be messy, I'll go back and clean up later. Using both JQuery and
 
 //================================
 //START LOAD TIMER (for debugging)
-var system = {
-    start: 0,
-    end: 0,
-    time: 0
-}
-system.start = new Date();
+console.time('Game Load Time');
 //================================
 
 /*=====================================================================================
@@ -17,7 +12,7 @@ GAME ENGINE: GLOBAL GAME DATA
 
 //version
 var version = "0.0.6"; //update with releases MAJOR.MINOR.PATCH
-var build = "19" //update each upload
+var build = "20" //update each upload
 
 //player data
 var p = {
@@ -607,6 +602,10 @@ function lootDirtField() { //loot table
     var exp = (s.excavation.multXp * 0.8);
     console.log(`Rolled ${x}/${f} - ${y}/700/900 - ${z}/9900`);
     if (x >= f) { //success queue for loot
+        p.curXp += pxp;
+        p.totalXp += pxp;
+        s.excavation.curXp += exp;
+        s.excavation.totalXp += exp;
         if (z >= 9900) { //ultra lucky loot -- TODO: ADD LEGENDARY/EPIC RESOURCE
             //legendary resource roll
             var lgnDirt = Math.floor(rng(1, 15) * s.excavation.power);
@@ -741,7 +740,5 @@ gameTick(); //force tick on end of document load
 saveData(); //force system save data to force new cookies to save
 //=================================================
 //END OF LOAD TIMER (for debugging)
-system.end = new Date();
-system.time = (system.end - system.start) / 1000;
-console.log(`Game file loaded in ${system.time}s`)
+console.timeEnd('Game Load Time');
 //=================================================
